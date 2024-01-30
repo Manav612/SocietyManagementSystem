@@ -6,7 +6,7 @@ const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const NoticeCard = ({ title, text, imageSource }) => {
     return (
-        
+
         <View style={styles.noticeCard}>
             <View style={styles.noticeLeft}>
                 <View style={styles.noticeLine} />
@@ -28,7 +28,7 @@ const NoticeCard = ({ title, text, imageSource }) => {
 };
 
 
-const Notice = ({navigation}) => {
+const Notice = ({ navigation }) => {
     const noticeData = [
         {
             title: 'NOTICE 1',
@@ -98,7 +98,7 @@ const Notice = ({navigation}) => {
     };
 
     return (
-        <View>
+        <View style={{height:windowHeight*1}}>
 
             <View style={{ paddingVertical: 20, paddingHorizontal: 15, flexDirection: 'row', gap: 20 }}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>

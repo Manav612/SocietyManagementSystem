@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView, StyleSheet, Dimensions, FlatList } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
+import { useSelector } from 'react-redux';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -30,7 +31,7 @@ const NoticeCard = ({ title, text, imageSource }) => {
 const Home = ({ navigation }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const flatListRef = useRef(null);
-
+    const userName = useSelector(state=>state.dataReducer)
     const noticeData = [
         {
             title: 'NOTICE 1',
@@ -71,7 +72,7 @@ const Home = ({ navigation }) => {
                     <View style={styles.userInfo}>
                         <Image source={require('../../assets/userImage.png')} style={styles.userImage} />
                         <View>
-                            <Text style={styles.userName}>Hi Manav</Text>
+                            <Text style={styles.userName}>Hi {userName?.name}</Text>
                             <Text style={styles.userDetails}>A - 420 | Sky Society</Text>
                         </View>
                     </View>
@@ -128,7 +129,7 @@ const Home = ({ navigation }) => {
                 </View>
 
                 <View style={styles.cardRow}>
-                    <TouchableOpacity style={styles.cardContainer} onPress={() => navigation.navigate('NoticeBoard')}>
+                    <TouchableOpacity style={styles.cardContainer} onPress={() => navigation.navigate('NoticeStack')}>
                         <Text style={styles.cardTitle}>Notice Board</Text>
                         <Text style={styles.cardDescription}>Society announcement & event notice</Text>
                         <Image resizeMode="contain" source={require('../../assets/announcement.png')} style={styles.cardImage} />
