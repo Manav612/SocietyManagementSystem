@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -11,6 +11,7 @@ import Visitor from './src/screens/Visitor/Visitor';
 import Notice from './src/screens/NoticeBoard/NoticeBoard';
 import Payment from './src/screens/Payment/Payment';
 import { Provider } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import store from './src/redux/store';
 
 
@@ -51,8 +52,15 @@ const PaymentStack = () => {
 };
 
 const App = () => {
+  useEffect(async()=>{
+    const getData=()=>{
+        
+    }
+
+   
+  },[])
   return (
-    <Provider store={store}>
+    <Provider store={store}> 
       <NavigationContainer>
         <Stack.Navigator initialRouteName='SplashScreen' headerMode="none">
           <Stack.Screen options={{ headerShown: false }} name="Splash" component={SplashScreen} />
