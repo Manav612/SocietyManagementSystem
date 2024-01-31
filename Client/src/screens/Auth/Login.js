@@ -1,8 +1,14 @@
 import React from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ImageBackground, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ImageBackground, Dimensions, ScrollView, KeyboardAvoidingView, Alert } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { authenticatelogin } from '../../Service/api';
+import { name } from '../../redux/action';
+import { useDispatch } from 'react-redux';
+// import {AsyncStorage} from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 const windowHeight = Dimensions.get('window').height;
@@ -14,9 +20,29 @@ const validationSchema = yup.object().shape({
 });
 
 const Login = ({ navigation }) => {
-  const handleLogin = (values) => {
+  const dispatch = useDispatch();
+  const handleLogin = async(values) => {
     console.log('Logging in with:', values);
-    navigation.navigate('HomeTabs');
+    let response = await authenticatelogin(values);
+       console.log("responsee------",response);
+       if(response.status != 200){
+        // console.log("responsenottt",response);
+        Alert.alert("Error while login please try again")
+       }
+       else{
+        try {
+          const data=true
+          await AsyncStorage.setItem(
+            'USER',
+            JSON.stringify(data),
+          );
+        } catch (error) {
+          console.log("error in asynchstorageeee",error);
+        }
+         navigation.navigate('HomeTabs');
+
+       }
+       dispatch(name(values.email))
   };
 
   const handleSignUp = () => {

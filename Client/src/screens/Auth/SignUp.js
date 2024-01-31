@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Dimensions, ImageBackground } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Dimensions, ImageBackground, Alert } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useDispatch } from 'react-redux';
 import { name } from '../../redux/action';
+import { authenticatesignup } from '../../Service/api';
 
 
 const windowHeight = Dimensions.get('window').height;
@@ -16,14 +17,23 @@ const validationSchema = yup.object().shape({
   
 });
 
-const SignUp = ({ navigation }) => {
+const SignUp = ({ navigation }) =>{
   const dispatch = useDispatch();
-  const handleSignUp = (values) => {
-    // Add your registration logic here
-    console.log('Signing up with:', values);
-    dispatch(name(values.name))
-    // For demonstration purposes, navigate to a different screen after sign up
-    navigation.navigate('HomeTabs');
+  const handleSignUp = async(values) => {
+   
+    
+   
+    let response = await authenticatesignup(values);
+       console.log("responsee------",response);
+       if(!response){
+        console.log("responsenottt",response);
+        Alert.alert("Error while signup please try again")
+       }
+       else{
+         navigation.navigate('HomeTabs');
+       }
+       dispatch(name(values.name))
+
   };
 
   const handleLogin = () => {
