@@ -87,6 +87,8 @@ const Home = ({navigation}) => {
           data={noticeData}
           horizontal
           pagingEnabled
+          bounces
+          alwaysBounceHorizontal
           showsHorizontalScrollIndicator={false}
           onMomentumScrollEnd={event => {
             const newIndex = Math.round(
